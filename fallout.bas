@@ -5,8 +5,9 @@
 50 PRINT
 60 PRINT "Password Required"
 70 PRINT
-75 REM - TODO make sub to print CHR$(16) + " " + CHR$(17) + " " for each remaining attempt
 80 PRINT "Attempts Remaining: "
+85 GUESSES% = 4
+86 GOSUB 47000
 90 PRINT
 900 REM - get the words - TODO need more word sets
 910 DATA TAKES,KNOWN,KICKS,STARK,BOOTS,BATON,CLEAR,CRIME,WASTE,CLOSE,SWORD,SLAVE,FARGO,MAYBE,MALES
@@ -15,6 +16,8 @@
 940 READ WORDS$(I)
 950 NEXT
 960 WORDLENGTH% = LEN(WORDS$(1))
+970 PASSWORDIDX% = RND(15)
+980 PASSWORD$ = WORDS$(PASSWORDIDX%)
 1000 REM - set up the vars representing the left and right text fields
 1010 DATA " ","/","\","!","@","#","$","%","^","&","*","-","=","+",",",".",":",";"
 1020 DIM GARBAGECHARS$(18)
@@ -47,12 +50,13 @@
 1620 NEXT
 10000 REM - print the text fields at the right place
 10010 TOPROW = 7
-10020 HEXADDRESS = 48304
+10020 GOSUB 40100
+10025 HEXADDRESS = HEXADDRS!(RND(10))
 10030 FOR I = 0 TO 15
 10040 PRINT @ (TOPROW + I, 0), "0x" + HEX$(HEXADDRESS) + " " + MID$(LSIDE$, I*12 + 1, 12) + " 0x" + HEX$(HEXADDRESS + (12*16)) + " " + MID$(RSIDE$, I*12 + 1, 12);
 10050 HEXADDRESS = HEXADDRESS + 12
 10060 NEXT I
-10070 PRINT @ (TOPROW + 15, 40), " > ";
+10070 PRINT @ (TOPROW + 15, 41), ">";
 20000 REM - Set up the first word as our current highlighted one.
 20010 CURRWORD% = 1
 20020 GOSUB 43000
@@ -60,6 +64,7 @@
 21020 KEYIN$ = INPUT$(1)
 21030 IF KEYIN$ = CHR$(10) THEN GOSUB 44000: GOSUB 45000: GOSUB 43000
 21040 IF KEYIN$ = CHR$(11) THEN GOSUB 44000: GOSUB 46000: GOSUB 43000
+21050 IF KEYIN$ = CHR$(13) THEN GOSUB 50000
 21999 GOTO 21020
 39999 END
 40000 REM --- subroutine to pick a more random char from garbagechars
@@ -67,7 +72,14 @@
 40020 IF NEWCHAR$ = LASTCHAR$ THEN 40010
 40030 LASTCHAR$ = NEWCHAR$
 40040 RETURN
-40999 REM TODO TODO TODO DRY UP THESE NEXT TWO
+40100 REM -- subroutine to initialize the list of hex addresses
+40110 RESTORE 40120
+40111 REM TODO Get a better list of these
+40120 DATA 48304,49968,64198,20992,63056,20464,62720,2176,1536,3536
+40130 FOR J = 1 TO 10
+40140 READ HEXADDRS!(J)
+40150 NEXT
+40160 RETURN
 41000 REM -- subroutine to fill a two-dimensional array with lists of "print @" locations for LSIDE
 41010 RAWPOS% = LSIDEPOS%(I)
 41020 CURROW% = (RAWPOS% \ 12) + 7
@@ -91,10 +103,10 @@
 42080 NEXT J
 42090 RETURN
 43000 REM - highlight the word pointed to by CURRWORD% and put it lower-right
-43005 PRINT @ (TOPROW + 15, 43), STRING$(WORDLENGTH%, " ");
+43005 PRINT @ (TOPROW + 15, 42), STRING$(WORDLENGTH%, " ");
 43010 FOR J = 1 to WORDLENGTH%
 43020 PRINT @ PAPOSITIONS%(CURRWORD%, J), CHR$(16) + MID$(WORDS$(CURRWORD%), J, 1) + CHR$(17);
-43030 PRINT @ (TOPROW + 15, 42 + J), MID$(WORDS$(CURRWORD%), J, 1);
+43030 PRINT @ (TOPROW + 15, 41 + J), MID$(WORDS$(CURRWORD%), J, 1);
 43040 NEXT J
 43050 RETURN
 44000 REM - UN-highlight the word pointed to by CURRWORD%
@@ -110,3 +122,12 @@
 46010 CURRWORD% = CURRWORD% - 1
 46020 IF CURRWORD% = 0 THEN CURRWORD% = 15
 46030 RETURN
+47000 REM - print remaining-guesses blocks
+47020 FOR J = 1 to 4
+47030 IF J <= GUESSES% THEN PRINT @ (5, 17 + (J * 2)), " " + CHR$(16) + " " + CHR$(17); ELSE PRINT @ (5, 17 + (J * 2), "  "
+47040 NEXT J
+47050 RETURN
+50000 REM ===== Subroutine to process a guess
+50010 GUESS$ = WORDS$(CURRWORD%)
+51999 REM "if guess was wrong, decrement the number of guesses, bail if zero, gosub print the blocks"
+59999 RETURN
