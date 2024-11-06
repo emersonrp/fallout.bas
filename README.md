@@ -13,11 +13,11 @@ If you have to ask....
 * Highlighting guesses with the up and down arrow keys
 * Selecting a guess by hitting ENTER
 * Displaying how many matches there are
+* Ticking down your number of guesses
 * Notifying you when you win (by exiting)
 
 #### What doesn't?
 
-* Ticking down your number of guesses
 * Having more than one set of words
 * Any of the "remove duds" or "refill guesses" functionality from the original game
 * Being at all speedy or responsive.
@@ -45,6 +45,9 @@ and once BASIC has loaded,
 and after it has loaded the file, off it goes.
 
 
+In the medium future, I'll supply a tokenized/parsed FALLOUT.BAS which you'll get onto your TRS-80 similarly to the above, or via serial connection or or or, and it'll actually be simpler and faster.
+
+
 #### "This is awesome!"
 
 Thanks!  I'm enjoying the conceit and re-learning how to make ancient BASIC do things.
@@ -56,10 +59,10 @@ I know!  It's gonna get better.
 #### What's next?
 
 * Fix things in the "What doesn't?" list above
-* Get more lists of words
-* Do something more interesting when you win
+* Play some Fallout to get more lists of words, clarify the behavior, make it more correct
+* Do something more interesting when you win or lose
 * Possibly have it ask at start-time how many words or what length or...?
-* Possibly (likely) shim a bit of Z80 assembly in there to speed up the initial setup loops and so forth
+* Possibly (likely) shim a bit of Z80 assembly in there to speed up some of the slow bits
 * Supply this as a properly tokenized /BAS file, with the listing in an /ASC file.
 
 
