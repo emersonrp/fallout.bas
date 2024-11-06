@@ -5,18 +5,18 @@
 50 PRINT
 60 PRINT "Password Required"
 70 PRINT
-80 PRINT "Attempts Remaining: "
-90 GUESSES% = 4
-100 GOSUB 47000
-110 PRINT
-900 REM - get the words - TODO need more word sets
-910 RESTORE 910
-920 DATA TAKES,KNOWN,KICKS,STARK,BOOTS,BATON,CLEAR,CRIME,WASTE,CLOSE,SWORD,SLAVE,FARGO,MAYBE,MALES
-930 DIM WORDS$(15)
-940 FOR I = 1 TO 15 : READ WORDS$(I) : NEXT
-950 WORDLENGTH% = LEN(WORDS$(1))
-960 PASSWORDIDX% = RND(15)
-970 PASSWORD$ = WORDS$(PASSWORDIDX%)
+80 PRINT
+90 PRINT
+100 GUESSES% = 4
+110 DIM WORDS$(20) ' this needs to be the maximum possible word list length.  TODO can we re-DIM()?
+120 WORDLISTCOUNT% = 1 ' the number of word lists
+200 REM Initialize our word list TODO this is still -way- WIP
+205 REM When WORDLISTCOUNT > 1, the next line should be "on rnd(WORDLISTCOUNT%) GOSUB..."
+210 GOSUB 61000 ' Set up the DATA
+220 GOSUB 60000 ' Populate the word list
+230 WORDLENGTH% = LEN(WORDS$(1))
+240 PASSWORDIDX% = RND(WORDLISTLENGTH%)
+250 PASSWORD$ = WORDS$(PASSWORDIDX%)
 1000 REM - set up the vars representing the left and right text fields
 1010 RESTORE 1010
 1020 DATA " ","/","\","!","@","#","$","%","^","&","*","-","=","+",",",".",":",";"
@@ -30,23 +30,23 @@
 1100 LSIDE$ = LSIDE$ + LSIDE$ + LSIDE$ + LEFT$(LSIDE$, 42)
 1110 RSIDE$ = RIGHT$(LSIDE$, 32) + LEFT$(LSIDE$, 160)
 1500 REM - sprinkle the words into the text fields
-1501 REM - TODO maybe?  If we have word lists of different lengths, algorithmically divide up the field?
-1505 DIM PAPOSITIONS%(15,WORDLENGTH%) ' (number of words, length) TODO put those in vars
-1509 RESTORE 1510
-1510 DATA 14,50,66,95,108,128,154,174
-1520 FOR I = 1 TO 8
-1530     READ LSIDEPOS%(I)
-1540     LSIDEPOS%(I) = LSIDEPOS%(I) + RND(7) - 4
-1550     MID$(LSIDE$, LSIDEPOS%(I), LEN(WORDS$(I))) = WORDS$(I)
-1555     GOSUB 41000
-1560 NEXT
-1570 DATA 18,40,66,85,100,138,164
-1580 FOR I = 1 TO 7
-1590     READ RSIDEPOS%(I)
-1600     RSIDEPOS%(I) = RSIDEPOS%(I) + RND(7) - 4
-1610     MID$(RSIDE$, RSIDEPOS%(I), LEN(WORDS$(I+8))) = WORDS$(I+8)
-1615     GOSUB 42000
-1620 NEXT
+1510 DIM PAPOSITIONS%(WORDLISTLENGTH%,WORDLENGTH%) ' (number of words, length)
+1520 LSIDEWORDCOUNT% = WORDLISTLENGTH% \ 2
+1530 RSIDEWORDCOUNT% = WORDLISTLENGTH% \ 2
+1540 IF WORDLISTLENGTH% MOD 2 = 1 THEN LSIDEWORDCOUNT% = LSIDEWORDCOUNT% + 1
+1550 LCELLLENGTH% = (12*16) \ LSIDEWORDCOUNT%
+1560 RCELLLENGTH% = (12*16) \ RSIDEWORDCOUNT%
+1565 REM the math here is (move over X cells) + (middle of cell) - (center the word) + (randomize a bit)
+1570 FOR I = 1 to LSIDEWORDCOUNT%
+1580     LSIDEPOS%(I) = (LCELLLENGTH% * (I-1)) + (LCELLLENGTH% \ 2) - (LEN(WORDS$(I)) \ 2) + RND(7) - 4
+1590     MID$(LSIDE$, LSIDEPOS%(I), WORDLENGTH%) = WORDS$(I)
+1600     GOSUB 41000
+1610 NEXT I
+1620 FOR I = 1 to RSIDEWORDCOUNT%
+1630     RSIDEPOS%(I) = (RCELLLENGTH% * (I-1)) + (RCELLLENGTH% \ 2) - (LEN(WORDS$(I)) \ 2) + RND(7) - 4
+1640     MID$(RSIDE$, RSIDEPOS%(I), WORDLENGTH%) = WORDS$(I+LSIDEWORDCOUNT%)
+1650     GOSUB 42000
+1660 NEXT I
 10000 REM - print the text fields at the right place
 10010 TOPROW = 7
 10020 GOSUB 40100
@@ -55,7 +55,8 @@
 10040     PRINT @ (TOPROW + I, 0), "0x" + HEX$(HEXADDRESS) + " " + MID$(LSIDE$, I*12 + 1, 12) + " 0x" + HEX$(HEXADDRESS + (12*16)) + " " + MID$(RSIDE$, I*12 + 1, 12);
 10050     HEXADDRESS = HEXADDRESS + 12
 10060 NEXT I
-10070 GOSUB 49040 ' print the prompt
+10070 GOSUB 47000 ' print attempts remaining
+10080 GOSUB 49040 ' print the prompt
 10100 REM - Set up the array to keep track of the output lines to the right
 10200 DIM OUTPUTLINES$(15) ' 15 lines because the bottom one we always do dynamically
 20000 REM - Set up the first word as our current highlighted one.
@@ -99,7 +100,7 @@
 42030 CURCOL% = (RAWPOS% MOD 12)
 42035 IF CURCOL% = 0 THEN CURCOL% = 12: CURROW% = CURROW% - 1
 42040 FOR J = 1 to WORDLENGTH%
-42050     PAPOSITIONS%(I+8, J) = (CURROW% * 80) + 26 + CURCOL%
+42050     PAPOSITIONS%(I+LSIDEWORDCOUNT%, J) = (CURROW% * 80) + 26 + CURCOL%
 42060     CURCOL% = CURCOL% + 1
 42070     IF CURCOL% > 12 THEN CURCOL% = 1: CURROW% = CURROW% + 1
 42080 NEXT J
@@ -118,13 +119,14 @@
 44040 RETURN
 45000 REM - Increment CURRWORD%, wrapping around
 45010 CURRWORD% = CURRWORD% + 1
-45020 IF CURRWORD% = 16 THEN CURRWORD% = 1
+45020 IF CURRWORD% > WORDLISTLENGTH% THEN CURRWORD% = 1
 45030 RETURN
 46000 REM - Decrement CURRWORD%, wrapping around
 46010 CURRWORD% = CURRWORD% - 1
-46020 IF CURRWORD% = 0 THEN CURRWORD% = 15
+46020 IF CURRWORD% < 1 THEN CURRWORD% = WORDLISTLENGTH%
 46030 RETURN
-47000 REM - print remaining-guesses blocks
+47000 REM - print remaining-guesses line
+47010 PRINT @ (5, 0), "Attempts Remaining: ";
 47020 FOR J = 1 to 4
 47030     IF J <= GUESSES% THEN PRINT @ (5, 17 + (J * 2)), " " + CHR$(16) + " " + CHR$(17); ELSE PRINT @ (5, 17 + (J * 2)), "  ";
 47040 NEXT J
@@ -160,3 +162,13 @@
 50170 GOSUB 49040 ' repoint the cursor to bottom right
 50180 IF GUESSES% = 0 THEN PRINT: PRINT"OUT OF GUESSES!": END
 59999 RETURN
+60000 REM ===== IMPORT WORD LIST
+60010 READ WORDLISTLENGTH%
+60020 FOR J = 1 to WORDLISTLENGTH%
+60030     READ WORDS$(J)
+60040 NEXT J
+60050 RETURN
+61000 REM ===== WORD LISTS, each list begins with a number representing the length of the remaining list
+61010 RESTORE 60020
+61020 DATA 15,TAKES,KNOWN,KICKS,STARK,BOOTS,BATON,CLEAR,CRIME,WASTE,CLOSE,SWORD,SLAVE,FARGO,MAYBE,MALES
+61030 RETURN
