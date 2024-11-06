@@ -26,14 +26,13 @@
 1030 FOR I = 1 to 18
 1040     READ GARBAGECHARS$(I)
 1050 NEXT
+1055 REM - currently this loop takes ~ 4 seconds.  That's not terrible but faster would be better
 1060 FOR I = 1 TO 12*16
-1070     GOSUB 40000
-1080     LSIDE$ = LSIDE$ + NEWCHAR$
-1090 NEXT
-1100 FOR I = 1 to 12*16
-1110     GOSUB 40000
-1120     RSIDE$ = RSIDE$ + NEWCHAR$
-1130 NEXT I
+1070     NEWLCHAR$ = GARBAGECHARS$(RND(18))
+1080     IF NEWLCHAR$ = LASTLCHAR$ THEN 1070 ELSE LASTLCHAR$ = NEWLCHAR$
+1090     LSIDE$ = LSIDE$ + NEWLCHAR$
+1100 NEXT
+1110 RSIDE$ = RIGHT$(LSIDE$, 6*16) + LEFT$(LSIDE$, 6*16)
 1500 REM - sprinkle the words into the text fields
 1501 REM - TODO maybe?  If we have word lists of different lengths, algorithmically divide up the field?
 1505 DIM PAPOSITIONS%(15,WORDLENGTH%) ' (number of words, length) TODO put those in vars
@@ -131,7 +130,7 @@
 46030 RETURN
 47000 REM - print remaining-guesses blocks
 47020 FOR J = 1 to 4
-47030     IF J <= GUESSES% THEN PRINT @ (5, 17 + (J * 2)), " " + CHR$(16) + " " + CHR$(17); ELSE PRINT @ (5, 17 + (J * 2), "  ";
+47030     IF J <= GUESSES% THEN PRINT @ (5, 17 + (J * 2)), " " + CHR$(16) + " " + CHR$(17); ELSE PRINT @ (5, 17 + (J * 2)), "  ";
 47040 NEXT J
 47050 RETURN
 48000 REM - rotate / push the "stack" of right-hand output lines
@@ -160,6 +159,8 @@
 50110 NEWLINE$ = ">Likeness=" + RIGHT$(STR$(MATCHES%), 1)
 50120 GOSUB 48000
 50130 GOSUB 49000 ' print the lines
-50150 RETURN
-51999 REM "if guess was wrong, decrement the number of guesses, bail if zero, gosub print the blocks"
+50150 GUESSES% = GUESSES% - 1
+50160 GOSUB 47000 ' Decrement guesses blocks
+50170 GOSUB 49040 ' repoint the cursor to bottom right
+50180 IF GUESSES% = 0 THEN PRINT: PRINT"OUT OF GUESSES!": END
 59999 RETURN
