@@ -30,8 +30,8 @@ Currently, I supply ``FALLOUT.BAS``, the tokenized ready-to-run BASIC program, a
 
 * Get ``FALLOUT.BAS`` into your Model 4 somehow - options include:
   1. Use [trstools](http://www.trs-80emulators.com/trstools/) to copy FALLOUT.BAS to a floppy image.  Then one of:
-    1. Use a DOS-based emulator such as [David Kell's](http://cpmarchives.classiccmp.org/trs80/mirrors/www.discover-net.net/~dmkeil/trs80/model4.htm) that can write actual TRS-80 floppies on a PC 5.25" drive (sometimes).
-    2. Use a [Gotek](https://github.com/GrantMeStrength/TRS80gotek/tree/master) to access/mount the floppy image on the TRS-80.
+    * Use a DOS-based emulator such as [David Kell's](http://cpmarchives.classiccmp.org/trs80/mirrors/www.discover-net.net/~dmkeil/trs80/model4.htm) that can write actual TRS-80 floppies on a PC 5.25" drive (sometimes).
+    * Use a [Gotek](https://github.com/GrantMeStrength/TRS80gotek/tree/master) to access/mount the floppy image on the TRS-80.
   2. Use a [FreHD](https://www.vecoven.com/trs80/trs80.html) to boot an LS-DOS hard drive image;  use the included ``import2/cmd`` command to copy ``FALLOUT.BAS`` from the SD card onto the "hard drive."  See "I want to hack on it!" below for more details.
   3. Connect the TRS-80 via its serial port and do [an elaborate dance](https://www.vintagevolts.com/getting-software-running-on-my-trs-80-model-iv/) to get it transferred via XMODEM.
 * Run it via LS-DOS 6 BASIC.
