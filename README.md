@@ -2,7 +2,9 @@
 
 #### What is it?
 
-A partial implementation of the password guessing game / puzzle from the Fallout series of games, written in TRSDOS 6 / LS-DOS BASIC to run on an actual TRS-80 Model 4.
+A partial implementation of the password guessing game / puzzle from the Fallout series of games, written in LS-DOS 6 BASIC to run on an actual TRS-80 Model 4.
+
+It is intended to run either under LS-DOS Interpreted basic or via the EnhComp BASIC compiler.
 
 #### Why?
 
@@ -20,7 +22,6 @@ If you have to ask....
 
 * Having more than one set of words
 * Any of the "remove duds" or "refill guesses" functionality from the original game
-* Being at all speedy or responsive.
 
 #### How do I use this?
 
@@ -47,6 +48,8 @@ and after it has loaded the file, off it goes.
 
 In the medium future, I'll supply a tokenized/parsed FALLOUT.BAS which you'll get onto your TRS-80 similarly to the above, or via serial connection or or or, and it'll actually be simpler and faster.
 
+Also soon I will start adding in FALLOUT.CMD, the output of compiling this via the EnhComp BASIC compiler.  Once that's working, it'll probably be the quickest and primary path to victory.
+
 
 #### "This is awesome!"
 
@@ -62,8 +65,8 @@ I know!  It's gonna get better.
 * Play some Fallout to get more lists of words, clarify the behavior, make it more correct
 * Do something more interesting when you win or lose
 * Possibly have it ask at start-time how many words or what length or...?
-* Possibly (likely) shim a bit of Z80 assembly in there to speed up some of the slow bits
-* Supply this as a properly tokenized /BAS file, with the listing in an /ASC file.
+* Supply this as a properly tokenized /BAS file, with the listing in an /ASC file
+* Supply compiled version
 
 
 R Pickett emerson@hayseed.net
