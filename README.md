@@ -13,7 +13,9 @@ If you have to ask....
 ### What are these files?
 
 ``fallout.cmd`` - Actual compiled version of the program using Misosys' EnhComp BASIC Compiler.  This is experimental, but if it is working, it's probably the best bet.  <i><b>Not yet actually supplied - there's at least one bug I want to crush first.</b></i>
+
 ``fallout.bas`` - The tokenized BASIC file for LS-DOS 6 BASIC.  This will work for sure, but will be slower and less responsive than the compiled version.
+
 ``fallout.txt`` - The BASIC source code.  This is for if you want to hack on it yourself, though you can also use it to run the program in BASIC if you don't mind waiting a few extra seconds at startup.
 
 ### What works?
