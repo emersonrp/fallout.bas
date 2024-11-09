@@ -28,7 +28,8 @@ If you have to ask....
 
 ### What doesn't?
 
-* Having more than one set of words
+* Having enough wordsets
+* Having wordsets of word length other than five characters
 * Any of the "remove duds" or "refill guesses" functionality from the original game
 
 ### How do I use this?
@@ -66,9 +67,9 @@ and after it has loaded and parsed/tokenized the file, off it goes.
 
 Your mileage may vary;  if you want to do this on a real TRS-80 and don't have access to a FreHD, you'll likely need to use one of the other schemes mentioned above to get ``fallout.txt`` onto the machine.
 
-``fallout.txt`` is in "mac" format with respect to EOL characters, which is the same format the TRS-80 used.  If you save it with any other EOL format, the TRS-80 will likely barf when you transfer it over and try to use it.
+``fallout.txt`` is in "mac" format with respect to EOL characters[^2], which is the same format the TRS-80 used.  If you edit locally and save it with any other EOL format, the TRS-80 will likely barf when you transfer it over and try to use it.
 
-<i>vim users on non-Macs:  Add "set ffs=mac,unix,dos" to your vimrc to make vim do the right thing when editing it locally (this won't work in an in-file modeline for bootstrapping reasons).</i>
+<i>vim users on non-Macs:  Add </i>``set ffs=mac,unix,dos``<i> to your .vimrc to make vim do the right thing when editing it locally (this won't work in an in-file modeline for bootstrapping reasons).</i>
 
 
 ### "This is awesome!"
@@ -88,5 +89,7 @@ I know!  It's gonna get better.
 
 
 [^1]: I develop on LS-DOS 6, and don't test on TRSDOS, but to the best of my knowledge, the BASIC supplied with TRSDOS 6 is the same as that supplied with LS-DOS 6.  If you find something not working on TRSDOS, please open an issue.
+
+[^2]: That is, what vim calls "mac" which is the old CR-only EOL convention that Macs used prior to OSX, and that TRS-80s and C64s and Apple IIs and other ancient computers used.  It's a bit of a hassle, I know.
 
 R Pickett emerson@hayseed.net
