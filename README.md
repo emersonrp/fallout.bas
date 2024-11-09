@@ -1,4 +1,4 @@
-## FALLOUT/BAS
+## FALLOUT.BAS
 
 ### What is it?
 
@@ -12,9 +12,9 @@ If you have to ask....
 
 ### What are these files?
 
-``fallout.cmd`` - Actual compiled version of the program using [Misosys' EnhComp BASIC Compiler](https://www.tim-mann.org/misosys.html#down).  This is experimental, but works for you, it's going to be the best experience.
+``fallout.cmd`` - Actual compiled version of the program using [Misosys' EnhComp BASIC Compiler](https://www.tim-mann.org/misosys.html#down).  This is experimental, but if it works for you, it's going to be the best experience.
 
-``fallout.bas`` - The tokenized BASIC file for LS-DOS 6 BASIC.  This will work for sure, but will be slower and less responsive than the compiled version, and slightly harder to use.
+``fallout.bas`` - The tokenized BASIC file for LS-DOS / TRSDOS 6 BASIC.  This will work for sure, but will be slower and less responsive than the compiled version, and slightly harder to use.
 
 ``fallout.txt`` - The BASIC source code.  This is for if you want to hack on it yourself, though you can also use it to run the program in BASIC if you don't mind waiting a few extra seconds at startup.
 
@@ -42,31 +42,31 @@ If you want to play with this on an actual Model 4 (and, after all, who doesn't?
 1. Use [trstools](http://www.trs-80emulators.com/trstools/) to copy the program file to a floppy image.  Then one of:
     * Use a DOS-based emulator such as [David Kell's](http://cpmarchives.classiccmp.org/trs80/mirrors/www.discover-net.net/~dmkeil/trs80/model4.htm) that can write actual TRS-80 floppies on a PC 5.25" drive (sometimes).
     * Use a [Gotek](https://github.com/GrantMeStrength/TRS80gotek/tree/master) to access/mount the floppy image on the TRS-80.
-2. Use a [FreHD](https://www.vecoven.com/trs80/trs80.html) to boot an LS-DOS hard drive image;  use the included ``import2/cmd`` command to copy the program file from the SD card onto the "hard drive."  See "I want to hack on it!" below for more details on this process.
+2. Use a [FreHD](https://www.vecoven.com/trs80/trs80.html) to boot a hard drive image from an SD card;  use the FreHD-supplied ``import2/cmd`` command to copy the program file from the SD card onto the "hard drive."  See "I want to hack on it!" below for more details on this process.
 3. Connect the TRS-80's serial port to a modern computer via a null modem cable, and do [an elaborate dance](https://www.vintagevolts.com/getting-software-running-on-my-trs-80-model-iv/) to get the program file transferred via XMODEM.
 4. Type the contents of ``fallout.txt`` into the TRS-80 by hand (don't do this, ugh).
 
 ### I want to hack on it!
 
-My current process is that I'm using [trs80gp](http://48k.ca/trs80gp.html), booted from its [FreHD](https://www.vecoven.com/trs80/trs80.html) support into an LS-DOS image that contains FreHD's ``import2/cmd``.  I keep ``FALLOUT.TXT`` in the fake-SD-card directory, from which I edit it using vim.
+My current process is that I'm using [trs80gp](http://48k.ca/trs80gp.html), booted from its [FreHD](https://www.vecoven.com/trs80/trs80.html) support into an LS-DOS image that contains FreHD's ``import2/cmd``.  I keep ``fallout.txt`` in the fake-SD-card directory, from which I edit it using vim.
 
 When I'm ready to test, on the emulated TRS-80, I do:
 ```
-  import2 fallout.txt
+  IMPORT2 FALLOUT.TXT
 ```
-...which slurps up the file from the fake-SD-card directory, and names it "``FALLOUT/TXT``" on the TRS-80.  Then:
+...which slurps up the file from the fake-SD-card directory, and names it ``FALLOUT/TXT`` on the TRS-80.  Then:
 ```
-  basic
+  BASIC
 ```
 and once BASIC has loaded,
 ```
-  run "fallout/txt"
+  RUN "FALLOUT/TXT"
 ```
 and after it has loaded and parsed/tokenized the file, off it goes.
 
-Your mileage may vary;  if you want to do this on a real TRS-80 and don't have access to a FreHD, you'll likely need to use one of the other schemes mentioned above to get ``FALLOUT.TXT`` onto the machine.
+Your mileage may vary;  if you want to do this on a real TRS-80 and don't have access to a FreHD, you'll likely need to use one of the other schemes mentioned above to get ``fallout.txt`` onto the machine.
 
-``FALLOUT.TXT`` is in "mac" format with respect to EOL characters, which is the same format the TRS-80 used.  If you save it with any other EOL format, the TRS-80 will likely barf when you try to use it.
+``fallout.txt`` is in "mac" format with respect to EOL characters, which is the same format the TRS-80 used.  If you save it with any other EOL format, the TRS-80 will likely barf when you transfer it over and try to use it.
 
 <i>vim users on non-Macs:  Add "set ffs=mac,unix,dos" to your vimrc to make vim do the right thing when editing it locally (this won't work in an in-file modeline for bootstrapping reasons).</i>
 
@@ -87,6 +87,6 @@ I know!  It's gonna get better.
 * Possibly have it ask at start-time how many words or what length or...?
 
 
-[^1]: I develop on LSDOS 6, and don't test on TRSDOS, but to the best of my knowledge, the BASIC supplied with TRSDOS 6 is the same as that supplied with LS-DOS 6.  If you find something not working on TRSDOS, please open an issue.
+[^1]: I develop on LS-DOS 6, and don't test on TRSDOS, but to the best of my knowledge, the BASIC supplied with TRSDOS 6 is the same as that supplied with LS-DOS 6.  If you find something not working on TRSDOS, please open an issue.
 
 R Pickett emerson@hayseed.net
