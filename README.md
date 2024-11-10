@@ -21,7 +21,7 @@ If you have to ask....
 ### What works?
 
 * Navigating the "memory field" using the arrow keys or vi-style <kbd>h</kbd><kbd>j</kbd><kbd>k</kbd><kbd>l</kbd>
-* Selecting a guess by hitting <kbd>Enter</kbd>
+* Selecting a guess by hitting <kbd>Enter</kbd> or <kbd>Space</kbd>
 * Displaying how many matches there are
 * Ticking down your number of guesses
 * Notifying you when you win or lose (by exiting)
