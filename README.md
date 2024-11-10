@@ -2,9 +2,9 @@
 
 ### What is it?
 
-A partial implementation of the terminal hacking / password guessing game / puzzle from the Fallout series of games, written in LS-DOS/TRSDOS 6 BASIC to run on an actual or emulated TRS-80 Model 4/4P.
+An implementation of the terminal hacking / password guessing game / puzzle from the Fallout series of games, written in LS-DOS/TRSDOS 6 BASIC to run on an actual or emulated TRS-80 Model 4/4P.
 
-It is intended to run either under LS-DOS/TRSDOS 6 Interpreted basic or via [Misosys' EnhComp BASIC compiler](https://www.tim-mann.org/misosys.html#down).  It only will work on a Model 4/4P, as it requires 80x24 video mode.
+It is intended to run either under LS-DOS/TRSDOS 6 interpreted BASIC or via [Misosys' EnhComp BASIC compiler](https://www.tim-mann.org/misosys.html#down).  It only will work on a Model 4/4P, as it requires 80x24 video mode.
 
 ### Why?
 
@@ -25,12 +25,12 @@ If you have to ask....
 * Displaying how many matches there are
 * Ticking down your number of guesses
 * Notifying you when you win or lose (by exiting)
+* "Remove dud" and "reset guesses" from picking out {}()[]<> pairs from the noise
 
 ### What doesn't?
 
 * Having enough wordsets
 * Having wordsets of word length other than five characters
-* Any of the "remove duds" or "refill guesses" functionality from the original game (WIP)
 
 ### How do I use this?
 
@@ -92,7 +92,7 @@ I have a couple issues I'd like to fix that are sorta beyond my current understa
 My current issue is that the compiled version of the program doesn't display the blinking cursor at all.  I've hacked in a fake cursor using a reverse-video "space" character, but it's less sexy than actually having the real blinking cursor.  If you have any insight as to why the EnhComp-compiled version of the code would disable the display of the cursor, or more specifically, how to re-enable it, let me know.  Thanks!
 
 
-[^1]: I develop on LS-DOS 6, and don't test on TRSDOS, but to the best of my knowledge, the BASIC supplied with TRSDOS 6 is the same as that supplied with LS-DOS 6.  If you find something not working on TRSDOS, please open an issue.
+[^1]: I develop on LS-DOS 6, and don't test on TRSDOS, but as best I can tell, the BASIC supplied with TRSDOS 6 is the same as that supplied with LS-DOS 6.  If you find something not working on TRSDOS, please open an issue.
 
 [^2]: The details of this are beyond the scope of this README, but only some PC 5.25" drives, using some floppy controllers, will successfully work to read/write actual TRS-80 disks in a DOS emulator.  A USB-to-floppy adapter like a Greaseweazle will <b>NOT</b> work.  You need an actual 34-pin floppy connection from a supported motherboard or controller card to an actual 5.25" floppy drive.  You're gonna need a retro PC.
 
