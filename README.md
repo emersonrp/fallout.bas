@@ -47,7 +47,7 @@ If you want to play with this on an actual Model 4 (and, after all, who doesn't?
 3. Connect the TRS-80's serial port to a modern computer via a null modem cable, and do [an elaborate dance](https://www.vintagevolts.com/getting-software-running-on-my-trs-80-model-iv/) to get the program file(s) transferred via XMODEM.
 4. Type the contents of ``fallout.txt`` into the TRS-80 by hand (don't do this, ugh).
 
-Once you have your program file(s) available to your real or emulated Model 4, if you selected ``FALLOUT/CMD`` then you can simply type ``FALLOUT`` at the DOS Ready prompt.  If you selected ``FALLOUT/BAS`` then you need to start BASIC by typing ``BASIC`` at the DOS Ready prompt, then ``RUN "FALLOUT/BAS"`` once BASIC starts.  See below if you want to use ``FALLOUT/TXT``.
+Once you have your program file(s) available to your real or emulated Model 4, if you selected ``FALLOUT/CMD`` then you can simply type ``FALLOUT`` at the DOS Ready prompt.  If you selected ``FALLOUT/BAS`` then you can start the program by typing ``BASIC FALLOUT/BAS`` at the DOS Ready prompt.  See below if you want to use ``FALLOUT/TXT``.
 
 ### I want to hack on it!
 
@@ -59,11 +59,7 @@ When I'm ready to test, on the emulated TRS-80, I do:
 ```
 ...which slurps up the file from the fake-SD-card directory, and names it ``FALLOUT/TXT`` on the TRS-80.  Then:
 ```
-  BASIC
-```
-and once BASIC has loaded,
-```
-  RUN "FALLOUT/TXT"
+  BASIC FALLOUT/TXT
 ```
 and after it has loaded and parsed/tokenized the file, off it goes.
 
