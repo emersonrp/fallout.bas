@@ -25,7 +25,7 @@ If you have to ask....
 * Displaying how many matches there are
 * Ticking down your number of guesses
 * Notifying you when you win or lose (by exiting)
-* "Remove dud" and "reset guesses" from picking out {}()[]<> pairs from the noise
+* Picking out {}[]()<> pairs from the noise to "remove dud" and "reset guesses"
 
 ### What doesn't?
 
@@ -63,7 +63,7 @@ When I'm ready to test, on the emulated TRS-80, I do:
 ```
 and after it has loaded and parsed/tokenized the file, off it goes.
 
-Your mileage may vary;  if you want to do this on a real TRS-80 and don't have access to a FreHD, you'll likely need to use one of the other schemes mentioned above to get ``fallout.txt`` onto the machine.
+Your mileage may vary;  if you want to do this on a real TRS-80, you'll likely need to use one of the schemes mentioned above to get ``fallout.txt`` onto the machine.
 
 ``fallout.txt`` is in "mac" format with respect to EOL characters[^3], which is the same format the TRS-80 used.  If you edit locally and save it with any other EOL format, the TRS-80 will likely barf when you transfer it over and try to use it.  Beware any editor configuration that you might have that "helpfully" converts old files to modern conventions.
 
@@ -94,7 +94,7 @@ My current issue is that the compiled version of the program doesn't display the
 
 [^1]: I develop on LS-DOS 6, and don't test on TRSDOS, but as best I can tell, the BASIC supplied with TRSDOS 6 is the same as that supplied with LS-DOS 6.  If you find something not working on TRSDOS, please open an issue.
 
-[^2]: The details of this are beyond the scope of this README, but only some PC 5.25" drives, using some floppy controllers, will successfully work to read/write actual TRS-80 disks in a DOS emulator.  A USB-to-floppy adapter like a Greaseweazle will <b>NOT</b> work.  You need an actual 34-pin floppy connection from a supported motherboard or controller card to an actual 5.25" floppy drive.  You're gonna need a retro PC.
+[^2]: The details of this are beyond the scope of this README, but only some PC 5.25" drives, using some floppy controllers, will successfully work to read/write actual TRS-80 disks in a DOS-based TRS-80 emulator.  A USB-to-floppy adapter like a Greaseweazle will <b>NOT</b> work.  You need an actual 34-pin floppy connection from a supported motherboard or controller card to an actual 5.25" floppy drive.  You're gonna need a retro PC.
 
 [^3]: That is, what vim calls "mac" which is the old CR-only EOL convention that Macs used prior to OSX, and that TRS-80s and C64s and Apple IIs and other ancient computers used.  It's a bit of a hassle, I know.
 
