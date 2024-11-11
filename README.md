@@ -2,7 +2,7 @@
 
 ### What is it?
 
-An implementation of the terminal hacking / password guessing game / puzzle from the Fallout series of games, written in LS-DOS/TRSDOS 6 BASIC to run on an actual or emulated TRS-80 Model 4/4P.
+An implementation of the terminal hacking / password guessing game from the [Fallout](https://fallout.bethesda.net/en/games) series of games, written in LS-DOS/TRSDOS 6 BASIC to run on an actual or emulated TRS-80 Model 4/4P.
 
 It is intended to run either under LS-DOS/TRSDOS 6 interpreted BASIC or via [Misosys' EnhComp BASIC compiler](https://www.tim-mann.org/misosys.html#down).  It only will work on a Model 4/4P, as it requires 80x24 video mode.
 
@@ -30,7 +30,8 @@ Pretty much everything:
 
 ### What's different from the real game
 
-Not much:
+Some little stuff:
+* Fallout will display up to 20 words, depending on your INT.  The current max for this program is 18.  This is fixable, and might get fixed.
 * In actual Fallout, a word can "split" between the left and right fields.  This program can't do that.  I might or might not try to fix that.
 * The word-layout randomizer is much less sophisticated than I'm sure the real game's is, so it can get confused and bail out, especially when there are many long words to try to place.  I plan to try to make this a little better.
 * The word lists are drawn from actual word lists displayed on actual terminals in actual Fallout; that is to say, the program doesn't algorithmically choose from a giant pool of words.  Some randomization and stirring is done, but if you play this enough, you might see repeats of word clusters.  The password itself is always randomly picked from the wordlist, so even if you notice repeats, the answer isn't likely to be the same.
