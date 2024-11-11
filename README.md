@@ -28,7 +28,7 @@ Pretty much everything:
 * Notifying you when you win or lose (by exiting)
 * Picking out ``{}[]()<>`` pairs from the noise to "remove dud" and "reset guesses"
 
-### What's different from the real game
+### What's different from the real game?
 
 Some little stuff:
 * Fallout will display up to 20 words, depending on your INT.  The current max for this program is 18.  This is fixable, and might get fixed.
@@ -75,11 +75,11 @@ Your mileage may vary;  if you want to do this on a real TRS-80, you'll likely n
 <i>vim users on non-Macs:  Add </i>``set ffs=mac,unix,dos``<i> to your .vimrc to make vim do the right thing when editing it locally (this won't work in an in-file modeline for bootstrapping reasons).</i>
 
 
-### "This is awesome!"
+### This is awesome!
 
 Thanks!  I'm enjoying the conceit and re-learning how to make ancient BASIC do things.
 
-### "This is terrible!"
+### This is terrible!
 
 I know!  It's gonna get better.  Found a bug?  [File an issue](https://github.com/emersonrp/fallout.bas/issues)!
 
@@ -89,7 +89,7 @@ I know!  It's gonna get better.  Found a bug?  [File an issue](https://github.co
 * Do something more interesting when you win or lose
 * Some sort of startup interface to select terminal difficulty (and player's INT?)
 
-### ATTENTION RETRO HACKERS
+### ATTENTION RETRO HACKERS!
 
 I have a couple issues I'd like to fix that are sorta beyond my current understanding.  There's just a handful of people in the world that might be able to help me, but if you're here looking at this, it makes it immensely more likely you're one of them.
 
