@@ -25,7 +25,7 @@ If you have to ask....
 * Displaying how many matches there are
 * Ticking down your number of guesses
 * Notifying you when you win or lose (by exiting)
-* Picking out {}[]()<> pairs from the noise to "remove dud" and "reset guesses"
+* Picking out <kbd>{</kbd><kbd>}</kbd><kbd>[</kbd><kbd>]</kbd><kbd>(</kbd><kbd>)</kbd><kbd>&lt;</kbd><kbd>&gt;</kbd> pairs from the noise to "remove dud" and "reset guesses"
 
 ### What doesn't?
 
@@ -76,14 +76,13 @@ Thanks!  I'm enjoying the conceit and re-learning how to make ancient BASIC do t
 
 ### "This is terrible!"
 
-I know!  It's gonna get better.
+I know!  It's gonna get better.  Found a bug?  [File an issue](https://github.com/emersonrp/fallout.bas/issues)!
 
 ### What's next?
 
-* Fix things in the "What doesn't?" list above
 * Play some Fallout to get more lists of words, clarify the behavior, make it more correct
 * Do something more interesting when you win or lose
-* Possibly have it ask at start-time how many words or what length or...?
+* Some sort of startup interface to select terminal difficulty (and player's INT?)
 
 ### ATTENTION RETRO HACKERS
 
