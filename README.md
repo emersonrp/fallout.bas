@@ -25,7 +25,7 @@ If you have to ask....
 * Displaying how many matches there are
 * Ticking down your number of guesses
 * Notifying you when you win or lose (by exiting)
-* Picking out <kbd>{</kbd><kbd>}</kbd><kbd>[</kbd><kbd>]</kbd><kbd>(</kbd><kbd>)</kbd><kbd>&lt;</kbd><kbd>&gt;</kbd> pairs from the noise to "remove dud" and "reset guesses"
+* Picking out ``{}[]()<>`` pairs from the noise to "remove dud" and "reset guesses"
 
 ### What doesn't?
 
