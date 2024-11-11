@@ -20,6 +20,7 @@ If you have to ask....
 
 ### What works?
 
+Pretty much everything:
 * Navigating the "memory field" using the arrow keys or vi-style <kbd>h</kbd><kbd>j</kbd><kbd>k</kbd><kbd>l</kbd>
 * Selecting a guess by hitting <kbd>Enter</kbd> or <kbd>Space</kbd>
 * Displaying how many matches there are
@@ -27,10 +28,13 @@ If you have to ask....
 * Notifying you when you win or lose (by exiting)
 * Picking out ``{}[]()<>`` pairs from the noise to "remove dud" and "reset guesses"
 
-### What doesn't?
+### What's different from the real game
 
-* Having enough wordsets
-* Having wordsets of word length other than five characters
+Not much:
+* In actual Fallout, a word can "split" between the left and right fields.  This program can't do that.  I might or might not try to fix that.
+* The word-layout randomizer is much less sophisticated than I'm sure the real game's is, so it can get confused and bail out, especially when there are many long words to try to place.  I plan to try to make this a little better.
+* The word lists are drawn from actual word lists displayed on actual terminals in actual Fallout; that is to say, the program doesn't algorithmically choose from a giant pool of words.  Some randomization and stirring is done, but if you play this enough, you might see repeats of word clusters.  The password itself is always randomly picked from the wordlist, so even if you notice repeats, the answer isn't likely to be the same.
+* There's not lots of juicy lore or valuable information available after successfully hacking.  I might try to do something about this, but we only have so much RAM to work with.
 
 ### How do I use this?
 
