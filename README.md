@@ -4,6 +4,8 @@
 
 An implementation of the terminal hacking / password guessing game from the [Fallout](https://fallout.bethesda.net/en/games) series of games, written in LS-DOS/TRSDOS 6 BASIC to run on an actual or emulated TRS-80 Model 4/4P.
 
+It most closely resembles the minigame in Fallout 4, by design.  The conceit is that the TRS-80 is a "Terminal Hacking Trainer" that allows the player to practice terminal hacking at selectable difficulties.
+
 It is intended to run either under LS-DOS/TRSDOS 6 interpreted BASIC or via [Misosys' EnhComp BASIC compiler](https://www.tim-mann.org/misosys.html#down).  It only will work on a Model 4/4P, as it requires 80x24 video mode.
 
 ### Why?
@@ -87,13 +89,14 @@ I know!  It's gonna get better.  Found a bug?  [File an issue](https://github.co
 
 * Play some Fallout to get more lists of words, clarify the behavior, make it more correct
 * Do something more interesting when you win or lose
-* Some sort of startup interface to select terminal difficulty (and player's INT?)
 
 ### ATTENTION RETRO HACKERS!
 
 I have a couple issues I'd like to fix that are sorta beyond my current understanding.  There's just a handful of people in the world that might be able to help me, but if you're here looking at this, it makes it immensely more likely you're one of them.
 
-My current issue is that the compiled version of the program doesn't display the blinking cursor at all.  I've hacked in a fake cursor using a reverse-video "space" character, but it's less sexy than actually having the real blinking cursor.  If you have any insight as to why the EnhComp-compiled version of the code would disable the display of the cursor, or more specifically, how to re-enable it, let me know.  Thanks!
+My primary issue is that the compiled version of the program doesn't display the blinking cursor at all.  I've hacked in a fake cursor using a reverse-video "space" character, but it's less sexy than actually having the real blinking cursor.  If you have any insight as to why the EnhComp-compiled version of the code would disable the display of the cursor, or more specifically, how to re-enable it, let me know.
+
+A second question is whether the upper 64K of "banked" RAM in a 128K machine is available to BASIC somehow.  I'm imagining not, that this would require dipping into assembler, which is out of scope for me, but I'd love to hear about it if I'm wrong.
 
 
 [^1]: I develop on LS-DOS 6, and don't test on TRSDOS, but as best I can tell, the BASIC supplied with TRSDOS 6 is the same as that supplied with LS-DOS 6.  If you find something not working on TRSDOS, please open an issue.
