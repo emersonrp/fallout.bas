@@ -25,7 +25,7 @@ If you have to ask....
 Pretty much everything:
 * Setting up the "memory field" with the correct number and length word, depending on player INT and terminal difficulty
 * Navigating the "memory field" using the arrow keys or vi-style <kbd>h</kbd><kbd>j</kbd><kbd>k</kbd><kbd>l</kbd>
-* Selecting a guess or "nugget" by hitting <kbd>Enter</kbd> or <kbd>Space</kbd>
+* Selecting a guess or nugget by hitting <kbd>Enter</kbd> or <kbd>Space</kbd>
 * Displaying how many matches there are
 * Ticking down your number of guesses
 * Selecting the start of ``{}[]()<>`` pairs ("nuggets") to "remove dud" and "reset guesses"
@@ -38,8 +38,8 @@ Some little stuff:
 * The vi-style navigation keys are not supported in the actual game, sadly;  neither is <kbd>Space</kbd> to select.  I flip-flopped on whether to add this but eventually decided to indulge myself.
 * The trainer's word-layout randomizer is much less sophisticated than I'm sure the real game's is, so it can be slow, especially when trying to place a large number of long words.  In the compiled version, expect a few seconds delay as it lays out the field.  In the interpreted version, this can take up to ten seconds.
 * The word lists are drawn from actual word lists displayed on actual terminals in actual Fallout; that is to say, the trainer doesn't algorithmically choose from a giant pool of words.  Some randomization and stirring is done, but if you play this enough, you might see repeats of word clusters.  The password itself is always randomly picked from the wordlist, so even if you notice repeats, the answer isn't likely to be the same.
-* The chance for a "nugget" to "reset guesses" versus "remove dud" is arbitrarily set at 20%.  I intend to get into the real game and do some testing to match the actual chance.
-* When selecting a "nugget" the trainer will immediately de-highlight the nugget;  in the real game it remains highlighted until you move off of it.  I will probably not fix this.
+* The chance for a nugget to "reset guesses" versus "remove dud" is arbitrarily set at 20%.  I intend to get into the real game and do some testing to match the actual chance.
+* When selecting a nugget the trainer will immediately de-highlight the nugget;  in the real game it remains highlighted until you move off of it.  I will probably not fix this.
 * There's not juicy lore or valuable information or door/gun controls presented after successfully hacking.  I might try to do something about this, but we only have so much RAM to work with.
 
 ### How do I use this?
@@ -61,7 +61,7 @@ Once you have your program file(s) available to your real or emulated Model 4, i
 
 ### I want to hack on it!
 
-My current process is that I'm using [trs80gp](http://48k.ca/trs80gp.html), booted from its [FreHD](https://www.vecoven.com/trs80/trs80.html) support into an LS-DOS image that contains FreHD's ``import2/cmd``.  I keep ``fallout.txt`` in the fake-SD-card directory, from which I edit it using vim.
+My current process is that I'm using [trs80gp](http://48k.ca/trs80gp.html), booted from its [FreHD](https://www.vecoven.com/trs80/trs80.html) support into an LS-DOS image that contains FreHD's ``IMPORT2/CMD``.  I keep ``fallout.txt`` in the fake-SD-card directory, from which I edit it using vim.
 
 When I'm ready to test, on the emulated TRS-80, I do:
 ```
@@ -71,7 +71,18 @@ When I'm ready to test, on the emulated TRS-80, I do:
 ```
   BASIC FALLOUT/TXT
 ```
-and after it has loaded and parsed/tokenized the file, off it goes.
+and after it has loaded and parsed/tokenized the file, off it goes, and I can test my changes.
+
+Once I'm satisfied with my changes, from inside BASIC, I'll:
+```
+  SAVE FALLOUT/BAS
+```
+to create the tokenized BASIC file, then exit to LS-DOS via ``SYSTEM``, then:
+```
+  BC FALLOUT/TXT
+```
+to compile ``FALLOUT/CMD``.  This requires having installed [Misosys' EnhComp BASIC Compiler](https://www.tim-mann.org/misosys.html#down) onto the LS-DOS image.  I then run ``FALLOUT`` from the LS-DOS prompt to test my changes and to verify that it works at all.  The compiler is a little finicky and can break during the compile, or can output a crashy program, so I typically test the compiled program pretty thoroughly to make sure I haven't introduced any new crashes or weirdness.
+
 
 Your mileage may vary;  if you want to do this on a real TRS-80, you'll need to use one of the schemes mentioned above in [How do I use this?](https://github.com/emersonrp/fallout.bas?tab=readme-ov-file#how-do-i-use-this) to get ``fallout.txt`` onto the machine.
 
