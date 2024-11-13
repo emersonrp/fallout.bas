@@ -53,11 +53,11 @@ If you want to play with this on an actual Model 4 (and, after all, who doesn't?
 1. Use [trstools](http://www.trs-80emulators.com/trstools/) to copy the program file(s) to a floppy image.  Then one of:
     * Use a DOS-based emulator that can (sometimes[^2]) write a TRS-80 floppy using a PC's 5.25" drive, such as [David Keil's](http://cpmarchives.classiccmp.org/trs80/mirrors/www.discover-net.net/~dmkeil/trs80/model4.htm), or [Matthew Reed's](http://www.trs-80emulators.com/m4/).  You can then mount the floppy image in the emulator, and copy files to the real floppy drive.  Check out [Tim Mann's discussion of this process](https://www.tim-mann.org/trs80faq.html#[7]).
     * Use a [Gotek](https://github.com/GrantMeStrength/TRS80gotek/tree/master) to access/mount the floppy image on the TRS-80.
-2. Use a [FreHD](https://www.vecoven.com/trs80/trs80.html) to boot a hard drive image from an SD card;  use the FreHD-supplied ``import2/cmd`` command to copy the program file from the SD card onto the "hard drive."  To do this, copy the program file(s) onto the SD card, then from the FreHD-enabled TRS-80, type ``IMPORT2 FALLOUT/CMD`` or ``IMPORT2 FALLOUT/BAS`` as appropriate.  <i>(Note: do <b>NOT</b> use the ``-n`` switch when importing the CMD or BAS file</i>[^3].
+2. Use a [FreHD](https://www.vecoven.com/trs80/trs80.html) to boot a hard drive image from an SD card;  use the FreHD-supplied ``IMPORT2/CMD`` command to copy the program file from the SD card onto the "hard drive."  To do this, copy the program file(s) onto the SD card, then from the FreHD-enabled TRS-80, type ``IMPORT2 FALLOUT.CMD`` or ``IMPORT2 FALLOUT.BAS`` as appropriate.  <i>(Note: do <b>NOT</b> use the ``-n`` switch when importing the CMD or BAS file</i>[^3].
 3. Connect the TRS-80's serial port to a modern computer via a null modem cable, and do [an elaborate dance](https://www.vintagevolts.com/getting-software-running-on-my-trs-80-model-iv/) to get the program file(s) transferred via XMODEM.
 4. Type the contents of ``fallout.txt`` into the TRS-80 by hand (don't do this, ugh).
 
-Once you have your program file(s) available to your real or emulated Model 4, if you selected ``FALLOUT/CMD`` then you can simply type ``FALLOUT`` at the DOS Ready prompt.  If you selected ``FALLOUT/BAS`` then you can start the program by typing ``BASIC FALLOUT/BAS`` at the DOS Ready prompt.  See below if you want to use ``FALLOUT/TXT``.
+Once you have your program file(s) available to your real or emulated Model 4, if you want to use ``FALLOUT/CMD`` then you can simply type ``FALLOUT`` at the DOS Ready prompt.  If you want to use ``FALLOUT/BAS`` then you can start the program by typing ``BASIC FALLOUT/BAS`` at the DOS Ready prompt.  See below if you want to use ``FALLOUT/TXT``.
 
 ### I want to hack on it!
 
@@ -73,7 +73,7 @@ When I'm ready to test, on the emulated TRS-80, I do:
 ```
 and after it has loaded and parsed/tokenized the file, off it goes.
 
-Your mileage may vary;  if you want to do this on a real TRS-80, you'll likely need to use one of the schemes mentioned above to get ``fallout.txt`` onto the machine.
+Your mileage may vary;  if you want to do this on a real TRS-80, you'll need to use one of the schemes mentioned above in [How do I use this?](https://github.com/emersonrp/fallout.bas?tab=readme-ov-file#how-do-i-use-this) to get ``fallout.txt`` onto the machine.
 
 
 ### This is awesome!
@@ -82,7 +82,7 @@ Thanks!  I'm enjoying the conceit and re-learning how to make ancient BASIC do t
 
 ### This is terrible!
 
-I know!  It's gonna get better.  Found a bug?  [File an issue](https://github.com/emersonrp/fallout.bas/issues)!
+I know!  It's gonna get better.  Found a bug?  Have a request?  [File an issue](https://github.com/emersonrp/fallout.bas/issues)!
 
 ### What's next?
 
