@@ -14,32 +14,33 @@ If you have to ask....
 
 ### What are these files?
 
-``fallout.cmd`` - Actual compiled version of the program using [Misosys' EnhComp BASIC Compiler](https://www.tim-mann.org/misosys.html#down).  This is experimental, but if it works for you, it's going to be the best experience.
+``fallout.cmd`` - The compiled program, using [Misosys' EnhComp BASIC Compiler](https://www.tim-mann.org/misosys.html#down).  This is experimental, but if it works for you, it's going to be the best experience.
 
 ``fallout.bas`` - The tokenized BASIC file for LS-DOS/TRSDOS 6 BASIC.  This will work for sure, but will be slower and less responsive than the compiled version, and slightly harder to use.
 
-``fallout.txt`` - The BASIC source code.  This is for if you want to hack on it yourself, though you can also use it to run the program in BASIC if you don't mind waiting a few extra seconds at startup.
+``fallout.txt`` - The BASIC source code.  This is for if you want to [hack on it yourself](https://github.com/emersonrp/fallout.bas?tab=readme-ov-file#i-want-to-hack-on-it), though you can also use it to run the program in BASIC if you don't mind waiting a few extra seconds at startup.
 
 ### What works?
 
 Pretty much everything:
-* Setting up the "memory field" with the correct number and length word, depending on INT and terminal difficulty
+* Setting up the "memory field" with the correct number and length word, depending on player INT and terminal difficulty
 * Navigating the "memory field" using the arrow keys or vi-style <kbd>h</kbd><kbd>j</kbd><kbd>k</kbd><kbd>l</kbd>
-* Selecting a guess by hitting <kbd>Enter</kbd> or <kbd>Space</kbd>
+* Selecting a guess or "nugget" by hitting <kbd>Enter</kbd> or <kbd>Space</kbd>
 * Displaying how many matches there are
 * Ticking down your number of guesses
-* Picking out ``{}[]()<>`` pairs ("nuggets") from the noise to "remove dud" and "reset guesses"
+* Selecting the start of ``{}[]()<>`` pairs ("nuggets") to "remove dud" and "reset guesses"
 * Notifying you when you win or lose
 
 ### What's different from the real game?
 
 Some little stuff:
 * In actual Fallout, a word can "split" between the end of the left field and the start of the right.  The trainer can't do that.  I have no current plans to fix this.
-* The trainer's word-layout randomizer is much less sophisticated than I'm sure the real game's is, so it can be slow, especially when trying to place a large number of long words.
-* The word lists are drawn from actual word lists displayed on actual terminals in actual Fallout; that is to say, the program doesn't algorithmically choose from a giant pool of words.  Some randomization and stirring is done, but if you play this enough, you might see repeats of word clusters.  The password itself is always randomly picked from the wordlist, so even if you notice repeats, the answer isn't likely to be the same.
+* The vi-style navigation keys are not supported in the actual game, sadly;  neither is <kbd>Space</kbd> to select.  I flip-flopped on whether to add this but eventually decided to indulge myself.
+* The trainer's word-layout randomizer is much less sophisticated than I'm sure the real game's is, so it can be slow, especially when trying to place a large number of long words.  In the compiled version, expect a few seconds delay as it lays out the field.  In the interpreted version, this can take up to ten seconds.
+* The word lists are drawn from actual word lists displayed on actual terminals in actual Fallout; that is to say, the trainer doesn't algorithmically choose from a giant pool of words.  Some randomization and stirring is done, but if you play this enough, you might see repeats of word clusters.  The password itself is always randomly picked from the wordlist, so even if you notice repeats, the answer isn't likely to be the same.
 * The chance for a "nugget" to "reset guesses" versus "remove dud" is arbitrarily set at 20%.  I intend to get into the real game and do some testing to match the actual chance.
 * When selecting a "nugget" the trainer will immediately de-highlight the nugget;  in the real game it remains highlighted until you move off of it.  I will probably not fix this.
-* There's not juicy lore or valuable information presented after successfully hacking.  I might try to do something about this, but we only have so much RAM to work with.
+* There's not juicy lore or valuable information or door/gun controls presented after successfully hacking.  I might try to do something about this, but we only have so much RAM to work with.
 
 ### How do I use this?
 
@@ -89,8 +90,9 @@ I know!  It's gonna get better.  Found a bug?  [File an issue](https://github.co
 
 ### What's next?
 
-* Play some Fallout to get more lists of words, clarify the behavior, make it more correct
-* Do something more interesting when you win or lose
+* Play some more Fallout to clarify the behavior, make it more correct
+* Possibly do something more interesting when you win or lose, RAM permitting
+* Possibly save a tiny config file containing the last-selected settings and maybe win/lose stats... possibly
 
 ### ATTENTION RETRO HACKERS!
 
@@ -98,7 +100,7 @@ I have a couple issues I'd like to fix that are sorta beyond my current understa
 
 My primary issue is that the compiled version of the program doesn't display the blinking cursor at all.  I've hacked in a fake cursor using a reverse-video "space" character, but it's less sexy than actually having the real blinking cursor.  If you have any insight as to why the EnhComp-compiled version of the code would disable the display of the cursor, or more specifically, how to re-enable it, let me know.
 
-A second question is whether the upper 64K of "banked" RAM in a 128K machine is available to BASIC somehow.  I'm imagining not, that this would require dipping into assembler, which is out of scope for me, but I'd love to hear about it if I'm wrong.
+A second question is whether the upper 64K of "banked" RAM in a 128K machine is available to BASIC somehow.  I'm imagining not, that this would require dipping into assembly language, which is out of scope for me, but I'd love to hear about it if I'm wrong.
 
 
 [^1]: I develop on LS-DOS 6, and don't test on TRSDOS, but as best I can tell, the BASIC supplied with TRSDOS 6 is the same as that supplied with LS-DOS 6.  If you find something not working on TRSDOS, please open an issue.
