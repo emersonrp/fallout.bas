@@ -4,7 +4,7 @@
 
 An implementation of the terminal hacking / password guessing game from the [Fallout](https://fallout.bethesda.net/en/games) series of games, written in LS-DOS/TRSDOS 6 BASIC to run on an actual or emulated TRS-80 Model 4/4P.
 
-It most closely resembles the minigame in Fallout 4, by design.  The conceit is that the TRS-80 is a "Terminal Hacking Trainer" that allows the player to practice terminal hacking at selectable difficulties.
+It most closely resembles the minigame in Fallout 4, by design.  The conceit is that the TRS-80 is a "ROBCO Terminal Hacking Trainer" that allows the player to practice terminal hacking at selectable difficulties.
 
 It is intended to run either under LS-DOS/TRSDOS 6 interpreted BASIC or via [Misosys' EnhComp BASIC compiler](https://www.tim-mann.org/misosys.html#down).  It only will work on a Model 4/4P, as it requires 80x24 video mode.
 
@@ -28,16 +28,17 @@ Pretty much everything:
 * Selecting a guess by hitting <kbd>Enter</kbd> or <kbd>Space</kbd>
 * Displaying how many matches there are
 * Ticking down your number of guesses
-* Notifying you when you win or lose (by exiting)
-* Picking out ``{}[]()<>`` pairs from the noise to "remove dud" and "reset guesses"
+* Picking out ``{}[]()<>`` pairs ("nuggets") from the noise to "remove dud" and "reset guesses"
+* Notifying you when you win or lose
 
 ### What's different from the real game?
 
 Some little stuff:
-* In actual Fallout, a word can "split" between the left and right fields.  This program can't do that.  I might or might not try to fix that.
-* The word-layout randomizer is much less sophisticated than I'm sure the real game's is, so it can get confused and bail out, especially when there are many long words to try to place.  I plan to try to make this a little better.
+* In actual Fallout, a word can "split" between the end of the left field and the start of the right.  The trainer can't do that.  I have no current plans to fix this.
+* The trainer's word-layout randomizer is much less sophisticated than I'm sure the real game's is, so it can be slow, especially when trying to place a large number of long words.
 * The word lists are drawn from actual word lists displayed on actual terminals in actual Fallout; that is to say, the program doesn't algorithmically choose from a giant pool of words.  Some randomization and stirring is done, but if you play this enough, you might see repeats of word clusters.  The password itself is always randomly picked from the wordlist, so even if you notice repeats, the answer isn't likely to be the same.
-* The chance for "reset guesses" versus "remove dud" is arbitrarily set at 20%.  I intend to get into the real game and do some testing to match the actual chance.
+* The chance for a "nugget" to "reset guesses" versus "remove dud" is arbitrarily set at 20%.  I intend to get into the real game and do some testing to match the actual chance.
+* When selecting a "nugget" the trainer will immediately de-highlight the nugget;  in the real game it remains highlighted until you move off of it.  I will probably not fix this.
 * There's not juicy lore or valuable information presented after successfully hacking.  I might try to do something about this, but we only have so much RAM to work with.
 
 ### How do I use this?
