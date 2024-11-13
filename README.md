@@ -53,7 +53,7 @@ If you want to play with this on an actual Model 4 (and, after all, who doesn't?
 1. Use [trstools](http://www.trs-80emulators.com/trstools/) to copy the program file(s) to a floppy image.  Then one of:
     * Use a DOS-based emulator that can (sometimes[^2]) write a TRS-80 floppy using a PC's 5.25" drive, such as [David Keil's](http://cpmarchives.classiccmp.org/trs80/mirrors/www.discover-net.net/~dmkeil/trs80/model4.htm), or [Matthew Reed's](http://www.trs-80emulators.com/m4/).  You can then mount the floppy image in the emulator, and copy files to the real floppy drive.  Check out [Tim Mann's discussion of this process](https://www.tim-mann.org/trs80faq.html#[7]).
     * Use a [Gotek](https://github.com/GrantMeStrength/TRS80gotek/tree/master) to access/mount the floppy image on the TRS-80.
-2. Use a [FreHD](https://www.vecoven.com/trs80/trs80.html) to boot a hard drive image from an SD card;  use the FreHD-supplied ``import2/cmd`` command to copy the program file from the SD card onto the "hard drive."  See "I want to hack on it!" below for more details on this process.
+2. Use a [FreHD](https://www.vecoven.com/trs80/trs80.html) to boot a hard drive image from an SD card;  use the FreHD-supplied ``import2/cmd`` command to copy the program file from the SD card onto the "hard drive."  To do this, copy the program file(s) onto the SD card, then from the FreHD-enabled TRS-80, type ``IMPORT2 FALLOUT/CMD`` or ``IMPORT2 FALLOUT/BAS`` as appropriate.  <i>(Note: do <b>NOT</b> use the ``-n`` switch when importing the CMD or BAS file</i>[^3].
 3. Connect the TRS-80's serial port to a modern computer via a null modem cable, and do [an elaborate dance](https://www.vintagevolts.com/getting-software-running-on-my-trs-80-model-iv/) to get the program file(s) transferred via XMODEM.
 4. Type the contents of ``fallout.txt`` into the TRS-80 by hand (don't do this, ugh).
 
@@ -65,19 +65,15 @@ My current process is that I'm using [trs80gp](http://48k.ca/trs80gp.html), boot
 
 When I'm ready to test, on the emulated TRS-80, I do:
 ```
-  IMPORT2 FALLOUT.TXT
+  IMPORT2 -n FALLOUT.TXT
 ```
-...which slurps up the file from the fake-SD-card directory, and names it ``FALLOUT/TXT`` on the TRS-80.  Then:
+...which slurps up the file from the fake-SD-card directory, changes the end-of-line characters to be correct for the TRS-80[^3], and names it ``FALLOUT/TXT`` on the TRS-80.  Then:
 ```
   BASIC FALLOUT/TXT
 ```
 and after it has loaded and parsed/tokenized the file, off it goes.
 
 Your mileage may vary;  if you want to do this on a real TRS-80, you'll likely need to use one of the schemes mentioned above to get ``fallout.txt`` onto the machine.
-
-``fallout.txt`` is in "mac" format with respect to EOL characters[^3], which is the same format the TRS-80 used.  If you edit locally and save it with any other EOL format, the TRS-80 will likely barf when you transfer it over and try to use it.  Beware any editor configuration that you might have that "helpfully" converts old files to modern conventions.
-
-<i>vim users on non-Macs:  Add </i>``set ffs=mac,unix,dos``<i> to your .vimrc to make vim do the right thing when editing it locally (this won't work in an in-file modeline for bootstrapping reasons).</i>
 
 
 ### This is awesome!
@@ -107,6 +103,6 @@ A second question is whether the upper 64K of "banked" RAM in a 128K machine is 
 
 [^2]: The details of this are beyond the scope of this README, but only some PC 5.25" drives, using some floppy controllers, will successfully work to read/write actual TRS-80 disks in a DOS-based TRS-80 emulator.  A USB-to-floppy adapter like a Greaseweazle will <b>NOT</b> work.  You need an actual 34-pin floppy connection from a supported motherboard or controller card to an actual 5.25" floppy drive.  You're gonna need a retro PC.
 
-[^3]: That is, what vim calls "mac" which is the old CR-only EOL convention that Macs used prior to OSX, and that TRS-80s and C64s and Apple IIs and other ancient computers used.  It's a bit of a hassle, I know.
+[^3]: The ``-n`` switch to ``IMPORT2/CMD`` translates end-of-line characters during the import.  This is needed for plain ASCII files, but will corrupt binary files.  You will <b>NOT</b> want to use this switch when importing either the 'CMD' or 'BAS' file;  you <b>WILL</b> want to use it when importing the 'TXT' file.
 
 R Pickett emerson@hayseed.net
