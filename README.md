@@ -4,7 +4,7 @@
 
 An implementation of the terminal hacking / password guessing game from the [Fallout](https://fallout.bethesda.net/en/games) series of games, written in LS-DOS/TRSDOS 6 BASIC to run on an actual or emulated TRS-80 Model 4/4P.
 
-It most closely resembles the minigame in Fallout 4, by design.  The conceit is that the TRS-80 is a "ROBCO Terminal Hacking Trainer" that allows the player to practice terminal hacking at selectable difficulties.
+It most closely resembles the minigame in Fallout 4, by design.  The conceit is that the program is a "ROBCO Terminal Hacking Trainer" that allows the player to practice terminal hacking at selectable difficulties.
 
 It is intended to run either under LS-DOS/TRSDOS 6 interpreted BASIC or via [Misosys' EnhComp BASIC compiler](https://www.tim-mann.org/misosys.html#down).  It only will work on a Model 4/4P, as it requires 80x24 video mode.
 
@@ -23,7 +23,7 @@ If you have to ask....
 ### What works?
 
 Pretty much everything:
-* Setting up the "memory field" with the correct number and length word, depending on player INT and terminal difficulty
+* Setting up the "memory field" with the correct number and length words, depending on player INT and terminal difficulty
 * Navigating the "memory field" using the arrow keys or vi-style <kbd>h</kbd><kbd>j</kbd><kbd>k</kbd><kbd>l</kbd>
 * Selecting a guess or nugget by hitting <kbd>Enter</kbd> or <kbd>Space</kbd>
 * Displaying how many matches there are
@@ -38,7 +38,6 @@ Some little stuff:
 * The vi-style navigation keys are not supported in the actual game, sadly;  neither is <kbd>Space</kbd> to select.  I flip-flopped on whether to add this but eventually decided to indulge myself.
 * The trainer's word-layout randomizer is much less sophisticated than I'm sure the real game's is, so it can be slow, especially when trying to place a large number of long words.  In the compiled version, expect a few seconds delay as it lays out the field.  In the interpreted version, this can take up to ten seconds.
 * The word lists are drawn from actual word lists displayed on actual terminals in actual Fallout; that is to say, the trainer doesn't algorithmically choose from a giant pool of words.  Some randomization and stirring is done, but if you play this enough, you might see repeats of word clusters.  The password itself is always randomly picked from the wordlist, so even if you notice repeats, the answer isn't likely to be the same.
-* The chance for a nugget to "reset guesses" versus "remove dud" is arbitrarily set at 20%.  I intend to get into the real game and do some testing to match the actual chance.
 * When selecting a nugget the trainer will immediately de-highlight the nugget;  in the real game it remains highlighted until you move off of it.  I will probably not fix this.
 * There's not juicy lore or valuable information or door/gun controls presented after successfully hacking.  I might try to do something about this, but we only have so much RAM to work with.
 
@@ -53,7 +52,7 @@ If you want to play with this on an actual Model 4 (and, after all, who doesn't?
 1. Use [trstools](http://www.trs-80emulators.com/trstools/) to copy the program file(s) to a floppy image.  Then one of:
     * Use a DOS-based emulator that can (sometimes[^2]) write a TRS-80 floppy using a PC's 5.25" drive, such as [David Keil's](http://cpmarchives.classiccmp.org/trs80/mirrors/www.discover-net.net/~dmkeil/trs80/model4.htm), or [Matthew Reed's](http://www.trs-80emulators.com/m4/).  You can then mount the floppy image in the emulator, and copy files to the real floppy drive.  Check out [Tim Mann's discussion of this process](https://www.tim-mann.org/trs80faq.html#[7]).
     * Use a [Gotek](https://github.com/GrantMeStrength/TRS80gotek/tree/master) to access/mount the floppy image on the TRS-80.
-2. Use a [FreHD](https://www.vecoven.com/trs80/trs80.html) to boot a hard drive image from an SD card;  use the FreHD-supplied ``IMPORT2/CMD`` command to copy the program file from the SD card onto the "hard drive."  To do this, copy the program file(s) onto the SD card, then from the FreHD-enabled TRS-80, type ``IMPORT2 FALLOUT.CMD`` or ``IMPORT2 FALLOUT.BAS`` as appropriate.  <i>(Note: do <b>NOT</b> use the ``-n`` switch when importing the CMD or BAS file</i>[^3].
+2. Use a [FreHD](https://www.vecoven.com/trs80/trs80.html) to boot a hard drive image from an SD card;  use the FreHD-supplied ``IMPORT2/CMD`` command to copy the program file from the SD card onto the "hard drive."  To do this, copy the program file(s) onto the SD card, then from the FreHD-enabled TRS-80, type ``IMPORT2 FALLOUT.CMD`` or ``IMPORT2 FALLOUT.BAS`` as appropriate.  <i>(Note: do <b>NOT</b> use the ``-n`` switch when importing the CMD or BAS file[^3].</i>)
 3. Connect the TRS-80's serial port to a modern computer via a null modem cable, and do [an elaborate dance](https://www.vintagevolts.com/getting-software-running-on-my-trs-80-model-iv/) to get the program file(s) transferred via XMODEM.
 4. Type the contents of ``fallout.txt`` into the TRS-80 by hand (don't do this, ugh).
 
@@ -97,7 +96,6 @@ I know!  It's gonna get better.  Found a bug?  Have a request?  [File an issue](
 
 ### What's next?
 
-* Play some more Fallout to clarify the behavior, make it more correct
 * Possibly do something more interesting when you win or lose, RAM permitting
 * Possibly save a tiny config file containing the last-selected settings and maybe win/lose stats... possibly
 
@@ -109,6 +107,8 @@ My primary issue is that the compiled version of the program doesn't display the
 
 A second question is whether the upper 64K of "banked" RAM in a 128K machine is available to BASIC somehow.  I'm imagining not, that this would require dipping into assembly language, which is out of scope for me, but I'd love to hear about it if I'm wrong.
 
+R Pickett emerson@hayseed.net
+
 
 [^1]: I develop on LS-DOS 6, and don't test on TRSDOS, but as best I can tell, the BASIC supplied with TRSDOS 6 is the same as that supplied with LS-DOS 6.  If you find something not working on TRSDOS, please open an issue.
 
@@ -116,4 +116,3 @@ A second question is whether the upper 64K of "banked" RAM in a 128K machine is 
 
 [^3]: The ``-n`` switch to ``IMPORT2/CMD`` translates end-of-line characters during the import.  This is needed for plain ASCII files, but will corrupt binary files.  You will <b>NOT</b> want to use this switch when importing either the 'CMD' or 'BAS' file;  you <b>WILL</b> want to use it when importing the 'TXT' file.
 
-R Pickett emerson@hayseed.net
