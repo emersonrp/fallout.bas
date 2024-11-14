@@ -14,7 +14,9 @@ If you have to ask....
 
 ### What are these files?
 
-``fallout.cmd`` - The compiled program, using [Misosys' EnhComp BASIC Compiler](https://www.tim-mann.org/misosys.html#down).  This is experimental, but if it works for you, it's going to be the best experience.
+``fallout.dsk`` - A bootable LS-DOS disk image that will automatically launch the program.  If you're using an emulator, this is almost certainly your path to victory.
+
+``fallout.cmd`` - The compiled program, using [Misosys' EnhComp BASIC Compiler](https://www.tim-mann.org/misosys.html#down).
 
 ``fallout.bas`` - The tokenized BASIC file for LS-DOS/TRSDOS 6 BASIC.  This will work for sure, but will be slower and less responsive than the compiled version, and slightly harder to use.
 
@@ -43,16 +45,14 @@ Some little stuff:
 
 ### How do I use this?
 
-You'll want to copy either ``fallout.cmd`` or ``fallout.bas`` to your TRS-80 Model 4 environment.  ``fallout.cmd`` should work in most situations;  ``fallout.bas`` requires the BASIC supplied with LS-DOS 6 or TRSDOS 6[^1].
-
-If you are running in an emulator, you have all sorts of options for getting files into and out of the emulated TRS-80.  Check your emulator's documentation.  Most likely you'll use [trstools](http://www.trs-80emulators.com/trstools/) or something similar to create a virtual floppy image containing the program file(s).
+If you're using a Model 4/4P emulator, simply mount ``fallout.dsk`` in your emulator's :0 drive and "hit reset" to boot from it.  It should just fire right up into the trainer.  The floppy image contains the CMD, BAS, and TXT files for your convenience, as well as LS-DOS BASIC.
 
 If you want to play with this on an actual Model 4 (and, after all, who doesn't?), it's more complicated to get the program file of your choice ('CMD' or 'BAS') onto the actual machine.  In case you're not familiar with this process already, options include:
 
-1. Use [trstools](http://www.trs-80emulators.com/trstools/) to copy the program file(s) to a floppy image.  Then one of:
+1. Start with the supplied ``fallout.dsk`` floppy image.  Then do one of:
     * Use a DOS-based emulator that can (sometimes[^2]) write a TRS-80 floppy using a PC's 5.25" drive, such as [David Keil's](http://cpmarchives.classiccmp.org/trs80/mirrors/www.discover-net.net/~dmkeil/trs80/model4.htm), or [Matthew Reed's](http://www.trs-80emulators.com/m4/).  You can then mount the floppy image in the emulator, and copy files to the real floppy drive.  Check out [Tim Mann's discussion of this process](https://www.tim-mann.org/trs80faq.html#[7]).
-    * Use a [Gotek](https://github.com/GrantMeStrength/TRS80gotek/tree/master) to access/mount the floppy image on the TRS-80.
-2. Use a [FreHD](https://www.vecoven.com/trs80/trs80.html) to boot a hard drive image from an SD card;  use the FreHD-supplied ``IMPORT2/CMD`` command to copy the program file from the SD card onto the "hard drive."  To do this, copy the program file(s) onto the SD card, then from the FreHD-enabled TRS-80, type ``IMPORT2 FALLOUT.CMD`` or ``IMPORT2 FALLOUT.BAS`` as appropriate.  <i>(Note: do <b>NOT</b> use the ``-n`` switch when importing the CMD or BAS file[^3].</i>)
+    * Use a [Gotek](https://github.com/GrantMeStrength/TRS80gotek/tree/master) to access/mount the floppy image on the real TRS-80.
+2. Use a [FreHD](https://www.vecoven.com/trs80/trs80.html):  Copy the program file(s) onto your FreHD SD card, put it into the FreHD, then from the TRS-80, boot into a TRSDOS or LS-DOS image, and type ``IMPORT2 FALLOUT.CMD`` or ``IMPORT2 FALLOUT.BAS`` as appropriate.  <i>(Note: do <b>NOT</b> use the ``-n`` switch when importing the CMD or BAS file[^3].</i>)
 3. Connect the TRS-80's serial port to a modern computer via a null modem cable, and do [an elaborate dance](https://www.vintagevolts.com/getting-software-running-on-my-trs-80-model-iv/) to get the program file(s) transferred via XMODEM.
 4. Type the contents of ``fallout.txt`` into the TRS-80 by hand (don't do this, ugh).
 
