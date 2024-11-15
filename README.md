@@ -110,6 +110,8 @@ A second question is whether the upper 64K of "banked" RAM in a 128K machine is 
 
 R Pickett emerson@hayseed.net
 
+![PXL_20241115_044312270](https://github.com/user-attachments/assets/5ae9cdb6-3c42-4278-81f9-6864c367f52c)
+
 
 [^1]: I develop on LS-DOS 6, and don't test on TRSDOS, but as best I can tell, the BASIC supplied with TRSDOS 6 is the same as that supplied with LS-DOS 6.  If you find something not working on TRSDOS, please open an issue.
 
