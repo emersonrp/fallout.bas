@@ -7,8 +7,8 @@
 130 CONTROL% = 0
 140 INTWARN% = 0
 150 CLS
-160 PRINT @ 80,  "Welcome to ROBCO Industries(TM) Termlink"
-170 PRINT @ 80*3, "Terminal Hacking Trainer"
+160 PRINT @ 80 + 12,  "Welcome to ROBCO Industries(TM) Termlink"
+170 PRINT @ 80*3 + 12, "Terminal Hacking Trainer"
 180 PRINT @ 80*7 + 33, "SELECT OPTIONS"
 190 GOSUB 600
 200 PRINT @ 80*17 + 27, "[Enter] or [Space] to begin";
@@ -46,13 +46,13 @@
 800 REM Print the INT warning if needed
 810 IF INTWARN% = 1 THEN PRINT @ 80*15 + 15, "Higher difficulty terminals require at least 4 INT"; ELSE PRINT @ 80 * 15 + 15, STRING$(50, " ");
 820 INTWARN% = 0
-830 PRINT @ 23*80, "";
+830 PRINT @ 23*80 + 12, "";
 840 RETURN
 900 REM ===== Print the top lines of the game UI
 910 CLS
-920 PRINT @ 80,  "Welcome to ROBCO Industries (TM) Termlink"
-930 PRINT @ 240, "Password Required"
-940 PRINT @ 400, CHR$(16); " "; CHR$(17); CHR$(24);: ' fake cursor for compiled version
+920 PRINT @ 80 + 12,  "Welcome to ROBCO Industries (TM) Termlink"
+930 PRINT @ 240 + 12, "Password Required"
+940 PRINT @ 400 + 12, CHR$(16); " "; CHR$(17); CHR$(24);: ' fake cursor for compiled version
 1000 REM ===== set up the vars representing the left and right text fields
 1005 GUESSES% = 4
 1010 GOSUB 60000: ' Populate the word list
@@ -117,10 +117,10 @@
 1810   GOSUB 42000
 1820 NEXT I
 10000 REM ===== print the text fields at the right place
-10005 PRINT @ 400, " ";: ' clear the fake cursor
+10005 PRINT @ 400 + 12, " ";: ' clear the fake cursor
 10020 FOR I = 0 TO 15
-10030   PALOC = (I+7) * 80
-10040   PRINT @ PALOC, "0x" ; HEX$(HEXADDR!) ; " " ; MID$(LSIDE$, I*12 + 1, 12) ; " 0x" ; HEX$(HEXADDR! + (12*16)) ; " " ; MID$(RSIDE$, I*12 + 1, 12);
+10030   PALOC% = (I+7) * 80 + 12
+10040   PRINT @ PALOC%, "0x" ; HEX$(HEXADDR!) ; " " ; MID$(LSIDE$, I*12 + 1, 12) ; " 0x" ; HEX$(HEXADDR! + (12*16)) ; " " ; MID$(RSIDE$, I*12 + 1, 12);
 10050   HEXADDR! = HEXADDR! + 12
 10060 NEXT I
 10070 GOSUB 47000: ' reprint "attempts remaining" line
@@ -137,13 +137,13 @@
 21060 IF KEYIN$ = CHR$(13) THEN IF CW% = -1 THEN GOSUB 51500 ELSE IF ISNUGGET% = 1 THEN GOSUB 51000 ELSE IF CW% > 0 THEN GOSUB 50000 ELSE GOSUB 51500
 21070 IF KEYIN$ = " " THEN IF CW% = -1 THEN GOSUB 51500 ELSE IF ISNUGGET% = 1 THEN GOSUB 51000 ELSE IF CW% > 0 THEN GOSUB 50000 ELSE GOSUB 51500
 21999 GOTO 21010
-39999 CLS: PRINT "Terminal hacking training ended.": END
+39999 CLS: PRINT "Terminal hacking training ended.  Thank you for using ROBCO.": END
 40000 REM ===== sub to DTRT with the current cursor location
 40003 REM print / unhighlight our current thingie before we change around where CURPA points
 40005 IF ISNUGGET% = 1 THEN PRINT @ CURPA%, GUESS$;: ISNUGGET% = 0 ELSE PRINT @ CURPA%, CURCHAR$;
 40007 IF CW% > 0 THEN GOSUB 44000: CW% = 0
 40010 CURPOS% = (CURY%-1) * 12 + CURX%
-40020 IF CURSIDE% = 0 THEN CURPA% = (CURY%+6)*80 + 6 + CURX% ELSE CURPA% = (CURY%+6)*80 + 26 + CURX%
+40020 IF CURSIDE% = 0 THEN CURPA% = (CURY%+6)*80 + 6 + CURX% + 12 ELSE CURPA% = (CURY%+6)*80 + 26 + CURX% + 12
 40030 IF CURSIDE% = 0 THEN CURCHAR$ = MID$(LSIDE$, CURPOS%, 1) ELSE CURCHAR$ = MID$(RSIDE$, CURPOS%, 1)
 40040 IF CURSIDE% = 0 THEN CW% = LP2W%(CURPOS%) ELSE CW% = RP2W%(CURPOS%)
 40060 IF CW% > 0 THEN IF WORDS$(CW%) <> DUD$ THEN GOSUB 44000: GOSUB 43000 ELSE GOSUB 45000
@@ -184,7 +184,6 @@
 40820 IF CURX% < 12 THEN CURX% = CURX% + 1 ELSE IF CURSIDE% = 0 THEN CURSIDE% = 1: CURX% = 1
 40830 GOSUB 40000
 40840 RETURN
-
 40900 REM ===== check for split word and set up ISSPLIT%, WORDHALF%, and SPLITCHAR%
 40905 ISSPLIT% = 0: SPLITCHAR% = 0: WORDHALF% = 0
 40907 REM TODO when we get rid of PAPOS, the algoritm here should be "if endchar mod 12 < startchar mod 12"
@@ -195,14 +194,13 @@
 40950   IF J < WL% THEN IF PAPOS%(CW%, J+1) - PAPOS%(CW%,J) > 1 THEN SPLITCHAR% = J
 40960 NEXT J
 40970 RETURN
-
 41000 REM ===== fill a two-dimensional array with lists of "print @" locations for LSIDE
 41010 RAWPOS% = LEFTP%(I)
 41020 CURROW% = INT(RAWPOS% / 12) + 7
 41030 CURCOL% = (RAWPOS% - INT(RAWPOS% / 12) * 12)
 41035 IF CURCOL% = 0 THEN CURCOL% = 12: CURROW% = CURROW% - 1
 41040 FOR J = 1 TO WL%
-41050   PAPOS%(I, J) = (CURROW% * 80) + 6 + CURCOL%
+41050   PAPOS%(I, J) = (CURROW% * 80) + 6 + CURCOL% + 12
 41060   CURCOL% = CURCOL% + 1
 41070   IF CURCOL% > 12 THEN CURCOL% = 1: CURROW% = CURROW% + 1
 41080 NEXT J
@@ -213,20 +211,20 @@
 42030 CURCOL% = (RAWPOS% - INT(RAWPOS% / 12) * 12)
 42035 IF CURCOL% = 0 THEN CURCOL% = 12: CURROW% = CURROW% - 1
 42040 FOR J = 1 TO WL%
-42050   PAPOS%(I, J) = (CURROW% * 80) + 26 + CURCOL%
+42050   PAPOS%(I, J) = (CURROW% * 80) + 26 + CURCOL% + 12
 42060   CURCOL% = CURCOL% + 1
 42070   IF CURCOL% > 12 THEN CURCOL% = 1: CURROW% = CURROW% + 1
 42080 NEXT J
 42090 RETURN
 43000 REM ===== highlight the word pointed to by CW% and put it lower-right
-43010 PALOC = (22 * 80) + 42
-43020 PRINT @ PALOC, "            ";: ' clear the prompt area
+43010 PALOC% = (22 * 80) + 42 + 12
+43020 PRINT @ PALOC%, "            ";: ' clear the prompt area
 43030 FOR J = 1 TO WL%
 43040   PRINT @ PAPOS%(CW%, J), CHR$(16) + MID$(WORDS$(CW%), J, 1) + CHR$(17);
-43050   PRINT @ PALOC, MID$(WORDS$(CW%), J, 1);
-43060   PALOC = PALOC + 1
+43050   PRINT @ PALOC%, MID$(WORDS$(CW%), J, 1);
+43060   PALOC% = PALOC% + 1
 43070 NEXT J
-43080 PRINT @ PALOC, CHR$(16); " "; CHR$(17); CHR$(24);: ' fake cursor for compiled version
+43080 PRINT @ PALOC%, CHR$(16); " "; CHR$(17); CHR$(24);: ' fake cursor for compiled version
 43090 RETURN
 44000 REM ===== UN-highlight the word pointed to by CW%
 44005 IF CW% <= 0 THEN RETURN
@@ -261,10 +259,10 @@
 46530 GOSUB 49040
 46540 RETURN
 47000 REM ===== print "attempts remaining" line
-47010 PRINT @ 400, "Attempts Remaining: ";
+47010 PRINT @ 400 + 12, "Attempts Remaining: ";
 47020 FOR J = 1 TO 4
-47025   PALOC = 417 + (J * 2)
-47030   IF J <= GUESSES% THEN PRINT @ PALOC, " " ; CHR$(16) ; " " ; CHR$(17); ELSE PRINT @ PALOC, "  ";
+47025   PALOC% = 417 + (J * 2) + 12
+47030   IF J <= GUESSES% THEN PRINT @ PALOC%, " " ; CHR$(16) ; " " ; CHR$(17); ELSE PRINT @ PALOC%, "  ";
 47040 NEXT J
 47050 RETURN
 48000 REM ===== rotate / push the "stack" of right-hand output lines
@@ -275,13 +273,13 @@
 48050 RETURN
 49000 REM ===== print the right-hand lines and the prompt
 49010 FOR J = 1 TO 15
-49015   PALOC = ((22 - J) * 80) + 41
-49020   IF OUTPUTLINES$(J) <> "" THEN PRINT @ PALOC, OUTPUTLINES$(J);STRING$(15 - LEN(OUTPUTLINES$(J)), " ");
+49015   PALOC% = ((22 - J) * 80) + 41 + 12
+49020   IF OUTPUTLINES$(J) <> "" THEN PRINT @ PALOC%, OUTPUTLINES$(J);STRING$(15 - LEN(OUTPUTLINES$(J)), " ");
 49030 NEXT
 49040 REM ===== sometimes we GOSUB into the middle, here, if we just want to print the prompt
-49050 PALOC = 22*80 + 41
-49060 PRINT @ PALOC, ">               ";: ' clear the line, then:
-49070 PRINT @ PALOC, ">" ; GUESS$; CHR$(16); " "; CHR$(17); CHR$(24);: ' fake cursor for compiled version
+49050 PALOC% = 22*80 + 41 + 12
+49060 PRINT @ PALOC%, ">               ";: ' clear the line, then:
+49070 PRINT @ PALOC%, ">" ; GUESS$; CHR$(16); " "; CHR$(17); CHR$(24);: ' fake cursor for compiled version
 49090 RETURN
 50000 REM ===== process a guess
 50010 GUESS$ = WORDS$(CW%)
@@ -304,9 +302,9 @@
 50180 REM ELSE we are out of guesses, just fall through to the next bit
 50190 GUESS$ = "Init lockdown.": GOSUB 49040
 50200 REM ===== print results, wait for input
-50210 IF YOUWON% = 1 THEN PRINT @ 400, "*** HACKING SUCCESSFUL! ***   " ELSE PRINT @ 400, "OUT OF ATTEMPTS!  PWD WAS: " ; PWD$
-50220 PALOC = 22*80 + 41 + LEN(GUESS$) + 1: PRINT @ PALOC, " ": ' clear fake cursor
-50230 PRINT @ 23*80, "<ENTER> or <SPACE> for more training, <BREAK> to end.";
+50210 IF YOUWON% = 1 THEN PRINT @ 400 + 12, "*** HACKING SUCCESSFUL! ***   " ELSE PRINT @ 400 + 12, "OUT OF ATTEMPTS!  PWD WAS: " ; PWD$
+50220 PALOC% = 22*80 + 41 + LEN(GUESS$) + 1 + 12: PRINT @ PALOC%, " ": ' clear fake cursor
+50230 PRINT @ 23*80 + 12, "<ENTER> or <SPACE> for more training, <BREAK> to end.";
 50240 KEYIN$ = INKEY$: IF KEYIN$ = "" THEN 50240
 50250 IF KEYIN$ = CHR$(13) THEN RUN ELSE IF KEYIN$ = " " THEN RUN ELSE 50240
 50500 RETURN
